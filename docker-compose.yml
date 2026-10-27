@@ -1,0 +1,16 @@
+services:
+  api:
+    container_name: ctfczas
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+  nginx:
+    #worth to think about version pinning this
+    image: nginx:latest
+    container_name: ctfczas-nginx
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - api
